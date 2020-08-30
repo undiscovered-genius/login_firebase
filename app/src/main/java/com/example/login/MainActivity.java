@@ -19,17 +19,23 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.functions.FirebaseFunctions;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String TAG = "TAG";
     EditText emailId, password, mphone, mfullname;
     Button btnSignUp;
     TextView tvSignIn;
     FirebaseAuth mFirebaseAuth;
-    FirebaseFirestore fStore;
+    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     String userID;
+
+    private FirebaseFunctions mFunctions;
+// ...
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +43,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
         emailId = findViewById(R.id.editText);
         password = findViewById(R.id.editText2);
         btnSignUp = findViewById(R.id.button);
         tvSignIn = findViewById(R.id.textView);
-        mphone = findViewById(R.id.phone);
+        mphone = findViewById(R.id.prophone);
         mfullname = findViewById(R.id.fullname);
+        mFunctions = FirebaseFunctions.getInstance();
+
 
         if (mFirebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(),HomeActivity.class));
@@ -54,10 +61,12 @@ public class MainActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 final String email = emailId.getText().toString();
                 String pwd = password.getText().toString();
                 final String fullname = mfullname.getText().toString();
                 final String phone = mphone.getText().toString();
+
                 if(email.isEmpty()){
                     emailId.setError("Please enter email id");
                     emailId.requestFocus();
@@ -78,22 +87,27 @@ public class MainActivity extends AppCompatActivity {
                             }
                             else {
                                 userID = mFirebaseAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference= fStore.collection("users").document(userID);
+                               final DocumentReference documentReference= fStore.collection("users").document(userID);
                                 Map<String,Object> user = new HashMap<>();
-                                user.put("fName",fullname);
-                                user.put("email",email);
-                                user.put("phone",phone);
+                              user.put("fName",fullname);
+                               user.put("email",email);
+                               user.put("phone",phone);
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Log.d("","Onsuccess: user Profile is createdfor "+userID);
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
+                                       Log.d(TAG,"Onsuccess: user Profile is createdfor "+userID);
+                                   }
+                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Log.d("","OnFailure : "+e.toString());
+                                        Log.d(TAG,"OnFailure : "+e.toString());
                                     }
                                 });
+
+
+                               // Add a new document with a generated ID
+
+
                                 startActivity(new Intent(MainActivity.this,HomeActivity.class));
                             }
                         }
