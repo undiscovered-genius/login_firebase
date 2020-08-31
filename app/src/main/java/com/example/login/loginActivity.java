@@ -42,14 +42,7 @@ public class loginActivity extends AppCompatActivity {
         btnSignIn = findViewById(R.id.button);
         tvSignUp = findViewById(R.id.textView);
         mforgotpasswordlink = findViewById(R.id.forgotpassword);
-        susu = findViewById(R.id.textView7);
-        susu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent zz= new Intent(loginActivity.this,MainActivity.class);
-                startActivity(zz);
-            }
-        });
+
 
 
         btnSignIn.setOnClickListener(new View.OnClickListener(){

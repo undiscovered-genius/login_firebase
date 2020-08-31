@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         btnSignUp = findViewById(R.id.button);
         tvSignIn = findViewById(R.id.textView);
         mphone = findViewById(R.id.prophone);
-        mfullname = findViewById(R.id.fullname);
+        mfullname = findViewById(R.id.proname);
         mFunctions = FirebaseFunctions.getInstance();
 
 

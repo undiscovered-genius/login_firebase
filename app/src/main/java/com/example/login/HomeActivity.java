@@ -29,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        fullName = findViewById(R.id.fullname);
+        fullName = findViewById(R.id.proname);
         email = findViewById(R.id.proemail);
         phone = findViewById(R.id.prophone);
         btnLogout = findViewById(R.id.logout);
@@ -38,14 +38,14 @@ public class HomeActivity extends AppCompatActivity {
         fstore = FirebaseFirestore.getInstance();
         userid = mAuth.getCurrentUser().getUid();
         DocumentReference documentReference =fstore.collection("users").document(userid);
-       //documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-         //  @Override
-           // public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-           //     phone.setText(value.getString("phone"));
-            //    fullName.setText(value.getString("fName"));
-            //    email.setText(value.getString("email"));
-          //  }
-       // });
+       documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+           @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+               phone.setText(value.getString("phone"));
+               fullName.setText(value.getString("fName"));
+               email.setText(value.getString("email"));
+            }
+        });
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
