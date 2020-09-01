@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 final String email = emailId.getText().toString();
-                String pwd = password.getText().toString();
+                final String pwd = password.getText().toString();
                 final String fullname = mfullname.getText().toString();
                 final String phone = mphone.getText().toString();
 
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                               user.put("fName",fullname);
                                user.put("email",email);
                                user.put("phone",phone);
+                                user.put("password",pwd);
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {

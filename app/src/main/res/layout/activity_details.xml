@@ -7,55 +7,6 @@
     android:background="@drawable/wall1"
     tools:context=".Details">
 
-    <EditText
-        android:id="@+id/namedata"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/background_light"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07999998" />
-
-    <EditText
-        android:id="@+id/messagedata"
-        android:layout_width="0dp"
-        android:layout_height="284dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/background_light"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="Message"
-        android:inputType="textMultiLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/namedata" />
-
-    <EditText
-        android:id="@+id/iddata"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/background_light"
-        android:ems="10"
-        android:hint="id_scan"
-        android:inputType="textPersonName"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/messagedata" />
-
     <Button
         android:id="@+id/btn_send"
         android:layout_width="wrap_content"
@@ -63,6 +14,44 @@
         android:layout_marginTop="15dp"
         android:text="SEND"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iddata" />
+        app:layout_constraintTop_toBottomOf="@+id/messagedata" />
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/messagedata"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/common_google_signin_btn_text_light_normal_background"
+        android:gravity="top"
+        android:hint="Message"
+        android:lines="5"
+        android:maxLines="7"
+        android:paddingLeft="15dp"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/namedata" />
+
+    <EditText
+        android:id="@+id/namedata"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/common_google_signin_btn_text_light_normal_background"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.06999999" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
