@@ -3,6 +3,7 @@ package com.example.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -81,6 +82,7 @@ public class Details extends AppCompatActivity {
                         Toast.makeText(Details.this, "Upload successful, Thank You!", Toast.LENGTH_SHORT).show();
                         namedt.setText("");
                         messagedt.setText("");
+                        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                         //Log.d(TAG,"Onsuccess: user Profile is createdfor "+userID);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
