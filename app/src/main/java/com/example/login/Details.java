@@ -56,7 +56,7 @@ public class Details extends AppCompatActivity {
                 final String Mname = namedt.getText().toString();
                 final String Mmessage = messagedt.getText().toString();
                 userid = mAuth.getCurrentUser().getUid();
-                //Map<String, Object> feed = new HashMap<>();
+               /* //Map<String, Object> feed = new HashMap<>();
                 //feed.put("Name",Mname);
                 //feed.put("message",Mmessage);
                 //namestring = namedt;
@@ -70,7 +70,7 @@ public class Details extends AppCompatActivity {
                     //public void onComplete(@NonNull Task<Void> task) {
                       //  Toast.makeText(Details.this, "Upload successful, Thank You!", Toast.LENGTH_SHORT).show();
                     //}
-               // });
+               // });*/
                DocumentReference documentReference1 = fstore.collection("feedback").document(userid);
                 Map<String, Object> user = new HashMap<>();
                 user.put("Name",Mname);
@@ -82,7 +82,8 @@ public class Details extends AppCompatActivity {
                         Toast.makeText(Details.this, "Upload successful, Thank You!", Toast.LENGTH_SHORT).show();
                         namedt.setText("");
                         messagedt.setText("");
-                        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                        Intent homeact = new Intent(Details.this, HomeActivity.class);
+                        startActivity(homeact);
                         //Log.d(TAG,"Onsuccess: user Profile is createdfor "+userID);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -97,3 +98,4 @@ public class Details extends AppCompatActivity {
 
     }
 }
+

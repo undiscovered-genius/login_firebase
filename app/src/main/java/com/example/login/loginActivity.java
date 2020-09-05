@@ -1,6 +1,7 @@
 package com.example.login;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +21,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 //import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 //import com.google.firebase.auth.FirebaseUser;
 
@@ -29,6 +35,8 @@ public class loginActivity extends AppCompatActivity {
     Button btnSignIn;
     TextView tvSignUp,mforgotpasswordlink, susu;
     FirebaseAuth mFirebaseAuth;
+    //FirebaseFirestore fstore;
+    //String userid;
     //private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
@@ -98,7 +106,17 @@ public class loginActivity extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String mail;
+                        final String mail ;
+                        //fstore = FirebaseFirestore.getInstance();
+                        //userid = mFirebaseAuth.getCurrentUser().getUid();
+                       // DocumentReference documentReference = fstore.collection("users").document(userid);
+                       // documentReference.addSnapshotListener(loginActivity.this, new EventListener<DocumentSnapshot>() {
+                        //    @Override
+                         //   public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        //        resetMail.setText(value.getString("email"));
+                          //  }
+                       // });
+
                         mail = resetMail.getText().toString();
                         mFirebaseAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -113,8 +131,7 @@ public class loginActivity extends AppCompatActivity {
                         });
 
                     }
-                });
-                builder.setNegativeButton("No", new OnClickListener() {
+                }).setNegativeButton("No", new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //Intent intSignUp = new Intent(loginActivity.this, MainActivity.class);

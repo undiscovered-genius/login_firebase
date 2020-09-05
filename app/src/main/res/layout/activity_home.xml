@@ -75,9 +75,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="91dp"
-        android:layout_height="105dp"
+        android:id="@+id/profileImg"
+        android:layout_width="115dp"
+        android:layout_height="113dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:visibility="visible"
@@ -85,7 +85,7 @@
         app:layout_constraintHorizontal_bias="0.78"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prfile"
-        tools:srcCompat="@drawable/log" />
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/proname"
@@ -98,7 +98,7 @@
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/profileImg"
         app:layout_constraintTop_toBottomOf="@+id/prfile" />
 
     <TextView
@@ -112,7 +112,7 @@
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/profileImg"
         app:layout_constraintTop_toBottomOf="@+id/proname" />
 
     <TextView
@@ -126,7 +126,16 @@
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/profileImg"
         app:layout_constraintTop_toBottomOf="@+id/proemail" />
+
+    <ImageView
+        android:id="@+id/uploadimg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profileImg"
+        app:layout_constraintEnd_toStartOf="@+id/prophone"
+        app:srcCompat="@drawable/uploadimage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
