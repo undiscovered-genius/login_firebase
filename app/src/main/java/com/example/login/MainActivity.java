@@ -1,5 +1,7 @@
 package com.example.login;
 
+//package com.example.login;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,107 +27,107 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String TAG = "TAG";
-    EditText emailId, password, mphone, mfullname;
-    Button btnSignUp;
-    TextView tvSignIn;
-    FirebaseAuth mFirebaseAuth;
-    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
-    String userID;
+  public static final String TAG = "TAG";
+  EditText emailId, password, mphone, mfullname;
+  Button btnSignUp;
+  TextView tvSignIn;
+  FirebaseAuth mFirebaseAuth;
+  FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+  String userID;
 
-    private FirebaseFunctions mFunctions;
+  private FirebaseFunctions mFunctions;
 // ...
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        emailId = findViewById(R.id.editText);
-        password = findViewById(R.id.editText2);
-        btnSignUp = findViewById(R.id.button);
-        tvSignIn = findViewById(R.id.textView);
-        mphone = findViewById(R.id.prophone);
-        mfullname = findViewById(R.id.proname);
-        mFunctions = FirebaseFunctions.getInstance();
-
-
-        if (mFirebaseAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-            finish();
-        }
+    mFirebaseAuth = FirebaseAuth.getInstance();
+    emailId = findViewById(R.id.editText);
+    password = findViewById(R.id.editText2);
+    btnSignUp = findViewById(R.id.button);
+    tvSignIn = findViewById(R.id.textView);
+    mphone = findViewById(R.id.prophone);
+    mfullname = findViewById(R.id.proname);
+    mFunctions = FirebaseFunctions.getInstance();
 
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final String email = emailId.getText().toString();
-                final String pwd = password.getText().toString();
-                final String fullname = mfullname.getText().toString();
-                final String phone = mphone.getText().toString();
-
-                if(email.isEmpty()){
-                    emailId.setError("Please enter email id");
-                    emailId.requestFocus();
-                }
-                else if(pwd.isEmpty()){
-                    password.setError("Please enter password");
-                    password.requestFocus();
-                }
-                else if(email.isEmpty() && pwd.isEmpty()){
-                    Toast.makeText(MainActivity.this, "Fields are Empty!", Toast.LENGTH_SHORT).show();
-                }
-                else if(!(email.isEmpty() && pwd.isEmpty())){
-                    mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(MainActivity.this, new OnCompleteListener<com.google.firebase.auth.AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<com.google.firebase.auth.AuthResult> task) {
-                            if(!task.isSuccessful()){
-                                Toast.makeText(MainActivity.this, "SignUp Unsuccessful, Please Try Again!", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                userID = mFirebaseAuth.getCurrentUser().getUid();
-                               final DocumentReference documentReference= fStore.collection("users").document(userID);
-                                Map<String,Object> user = new HashMap<>();
-                              user.put("fName",fullname);
-                               user.put("email",email);
-                               user.put("phone",phone);
-                                user.put("password",pwd);
-                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                       Log.d(TAG,"Onsuccess: user Profile is createdfor "+userID);
-                                   }
-                                 }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG,"OnFailure : "+e.toString());
-                                    }
-                                });
-
-
-                               // Add a new document with a generated ID
-
-
-                                startActivity(new Intent(MainActivity.this,HomeActivity.class));
-                            }
-                        }
-                    });
-                }
-                else {
-                    Toast.makeText(MainActivity.this, "Error Ocurred!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }) ;
-
-        tvSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, loginActivity.class);
-                startActivity(i);
-            }
-        }) ;
+    if (mFirebaseAuth.getCurrentUser() != null){
+      startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+      finish();
     }
+
+
+    btnSignUp.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        final String email = emailId.getText().toString();
+        final String pwd = password.getText().toString();
+        final String fullname = mfullname.getText().toString();
+        final String phone = mphone.getText().toString();
+
+        if(email.isEmpty()){
+          emailId.setError("Please enter email id");
+          emailId.requestFocus();
+        }
+        else if(pwd.isEmpty()){
+          password.setError("Please enter password");
+          password.requestFocus();
+        }
+        else if(email.isEmpty() && pwd.isEmpty()){
+          Toast.makeText(MainActivity.this, "Fields are Empty!", Toast.LENGTH_SHORT).show();
+        }
+        else if(!(email.isEmpty() && pwd.isEmpty())){
+          mFirebaseAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(MainActivity.this, new OnCompleteListener<com.google.firebase.auth.AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<com.google.firebase.auth.AuthResult> task) {
+              if(!task.isSuccessful()){
+                Toast.makeText(MainActivity.this, "SignUp Unsuccessful, Please Try Again!", Toast.LENGTH_SHORT).show();
+              }
+              else {
+                userID = mFirebaseAuth.getCurrentUser().getUid();
+                final DocumentReference documentReference= fStore.collection("users").document(userID);
+                Map<String,Object> user = new HashMap<>();
+                user.put("fName",fullname);
+                user.put("email",email);
+                user.put("phone",phone);
+                user.put("password",pwd);
+                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                  @Override
+                  public void onSuccess(Void aVoid) {
+                    Log.d(TAG,"Onsuccess: user Profile is createdfor "+userID);
+                  }
+                }).addOnFailureListener(new OnFailureListener() {
+                  @Override
+                  public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG,"OnFailure : "+e.toString());
+                  }
+                });
+
+
+                // Add a new document with a generated ID
+
+
+                startActivity(new Intent(MainActivity.this,HomeActivity.class));
+              }
+            }
+          });
+        }
+        else {
+          Toast.makeText(MainActivity.this, "Error Ocurred!", Toast.LENGTH_SHORT).show();
+        }
+      }
+    }) ;
+
+    tvSignIn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent i = new Intent(MainActivity.this, loginActivity.class);
+        startActivity(i);
+      }
+    }) ;
+  }
 }

@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,6 +51,7 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
     FirebaseAuth mAuth;
     FirebaseFirestore fstore;
     String userid;
+    Button scan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,13 @@ public class Scanner extends AppCompatActivity implements ZXingScannerView.Resul
         mAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
         userid = mAuth.getCurrentUser().getUid();
+        scan = findViewById(R.id.scan);
+//        scan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
 
         zXingScannerView = new ZXingScannerView(this);

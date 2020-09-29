@@ -10,6 +10,7 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/scan"
         android:layout_width="296dp"
         android:layout_height="wrap_content"
         android:background="#383838"
