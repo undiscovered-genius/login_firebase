@@ -39,7 +39,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.5.0'
     implementation 'com.google.firebase:firebase-messaging:20.2.4'
     implementation 'com.squareup.picasso:picasso:2.71828'
-
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
 }
 apply plugin: 'com.android.application'

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,25 +55,32 @@ public class HomeActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
-        userid = mAuth.getCurrentUser().getUid();
+        try {
+            userid = mAuth.getCurrentUser().getUid();
 
-        StorageReference profileRef = storageReference.child("users/"+mAuth.getCurrentUser().getUid()+"/profile.jpg");
-        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(profileImage);
-            }
-        });
+            StorageReference profileRef = storageReference.child("users/"+mAuth.getCurrentUser().getUid()+"/profile.jpg");
+            profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(profileImage);
+                }
+            });
 
-        DocumentReference documentReference =fstore.collection("users").document(userid);
-       documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-           @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-               phone.setText(value.getString("phone"));
-               fullName.setText(value.getString("fName"));
-               email.setText(value.getString("email"));
-            }
-        });
+            DocumentReference documentReference =fstore.collection("users").document(userid);
+            documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    phone.setText(value.getString("phone"));
+                    fullName.setText(value.getString("fName"));
+                    email.setText(value.getString("email"));
+                }
+            });
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

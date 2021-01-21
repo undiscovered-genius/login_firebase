@@ -12,8 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,12 +35,16 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
   public static final String TAG = "TAG";
+  public static final int GOOGLE_SIGN_IN_CODE = 1005;
   EditText emailId, password, mphone, mfullname;
   Button btnSignUp;
   TextView tvSignIn;
   FirebaseAuth mFirebaseAuth;
   FirebaseFirestore fStore = FirebaseFirestore.getInstance();
   String userID;
+  SignInButton signInButton;
+  GoogleSignInOptions gso;
+  GoogleSignInClient signInClient;
 
   private FirebaseFunctions mFunctions;
 // ...
@@ -52,12 +63,31 @@ public class MainActivity extends AppCompatActivity {
     mphone = findViewById(R.id.prophone);
     mfullname = findViewById(R.id.proname);
     mFunctions = FirebaseFunctions.getInstance();
+    signInButton = findViewById(R.id.signGoogle);
 
 
     if (mFirebaseAuth.getCurrentUser() != null){
       startActivity(new Intent(getApplicationContext(),HomeActivity.class));
       finish();
     }
+
+    gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build();
+    signInClient = GoogleSignIn.getClient(this,gso);
+    GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
+    if (signInAccount != null){
+      Toast.makeText(this,"User is Logged in Already",Toast.LENGTH_SHORT).show();
+      startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+      finish();
+    }
+    signInButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent sign = signInClient.getSignInIntent();
+        startActivityForResult(sign, GOOGLE_SIGN_IN_CODE);
+      }
+    });
 
 
     btnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -130,4 +160,21 @@ public class MainActivity extends AppCompatActivity {
       }
     }) ;
   }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == GOOGLE_SIGN_IN_CODE){
+      Task<GoogleSignInAccount> signInTask = GoogleSignIn.getSignedInAccountFromIntent(data);
+      try {
+        GoogleSignInAccount signInAccount = signInTask.getResult(ApiException.class);
+        Toast.makeText(this,"Your Google Account is Connected",Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+        finish();
+      } catch (ApiException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
 }
