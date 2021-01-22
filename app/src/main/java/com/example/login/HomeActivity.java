@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,6 +31,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
     Button btnLogout;
@@ -57,8 +61,34 @@ public class HomeActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
+
         try {
             userid = mAuth.getCurrentUser().getUid();
+            Log.d("tag", "onCreate: " + mAuth.getCurrentUser().getEmail() +"  "+ mAuth.getCurrentUser().getDisplayName()+"  "+ mAuth.getCurrentUser().getPhoneNumber());
+            userid = mAuth.getCurrentUser().getUid();
+            String number = mAuth.getCurrentUser().getPhoneNumber();
+            final String num;
+            if (number == null){
+                num = "-";
+            }else{
+                num = mAuth.getCurrentUser().getPhoneNumber();
+            }
+            final DocumentReference documentreference= fstore.collection("users").document(userid);
+            Map<String,Object> user = new HashMap<>();
+            user.put("fName",mAuth.getCurrentUser().getDisplayName());
+            user.put("email",mAuth.getCurrentUser().getEmail());
+            user.put("phone",num);
+            documentreference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d("tag","Onsuccess: user Profile is createdfor "+userid);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("tag","OnFailure : "+e.toString());
+                }
+            });
 
             StorageReference profileRef = storageReference.child("users/"+mAuth.getCurrentUser().getUid()+"/profile.jpg");
             profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -67,7 +97,6 @@ public class HomeActivity extends AppCompatActivity {
                     Picasso.get().load(uri).into(profileImage);
                 }
             });
-
             DocumentReference documentReference =fstore.collection("users").document(userid);
             documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
                 @Override
@@ -81,13 +110,10 @@ public class HomeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-
-
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // FirebaseAuth.getInstance().signOut();
+              // FirebaseAuth.getInstance().signOut();
                 try {
                     GoogleSignIn.getClient(HomeActivity.this,new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build())
                             .signOut().addOnSuccessListener(new OnSuccessListener<Void>() {

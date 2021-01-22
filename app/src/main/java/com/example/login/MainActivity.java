@@ -21,11 +21,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.functions.FirebaseFunctions;
@@ -72,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("222983164938-h7243aqvsgec6gqgg03uua6h9ni5qkkn.apps.googleusercontent.com")
             .requestEmail()
             .build();
     signInClient = GoogleSignIn.getClient(this,gso);
@@ -136,10 +141,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG,"OnFailure : "+e.toString());
                   }
                 });
-
-
                 // Add a new document with a generated ID
-
 
                 startActivity(new Intent(MainActivity.this,HomeActivity.class));
               }
@@ -168,9 +170,22 @@ public class MainActivity extends AppCompatActivity {
       Task<GoogleSignInAccount> signInTask = GoogleSignIn.getSignedInAccountFromIntent(data);
       try {
         GoogleSignInAccount signInAccount = signInTask.getResult(ApiException.class);
-        Toast.makeText(this,"Your Google Account is Connected",Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-        finish();
+        AuthCredential authCredential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
+
+        mFirebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+          @Override
+          public void onComplete(@NonNull Task<AuthResult> task) {
+            Toast.makeText(getApplicationContext(),"Your Google Account is Connected",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this,HomeActivity.class));
+            finish();
+          }
+        }).addOnFailureListener(new OnFailureListener() {
+          @Override
+          public void onFailure(@NonNull Exception e) {
+            Toast.makeText(getApplicationContext(),"Error! Try Again",Toast.LENGTH_SHORT).show();
+          }
+        });
+
       } catch (ApiException e) {
         e.printStackTrace();
       }
