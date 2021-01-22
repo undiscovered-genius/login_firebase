@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -86,8 +88,27 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                // FirebaseAuth.getInstance().signOut();
+                try {
+                    GoogleSignIn.getClient(HomeActivity.this,new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build())
+                            .signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Intent intToMain = new Intent(HomeActivity.this, loginActivity.class);
+                            startActivity(intToMain);
+                            finish();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(HomeActivity.this,"Error! Try Again",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 Intent intToMain = new Intent(HomeActivity.this, loginActivity.class);
                 startActivity(intToMain);
+                finish();
             }
         });
         details = findViewById(R.id.button4);
