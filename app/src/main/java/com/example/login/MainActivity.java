@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             .build();
     signInClient = GoogleSignIn.getClient(this,gso);
     GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
-    if (signInAccount != null){
+    if (signInAccount != null || mFirebaseAuth.getCurrentUser() != null){
       Toast.makeText(this,"User is Logged in Already",Toast.LENGTH_SHORT).show();
       startActivity(new Intent(getApplicationContext(),HomeActivity.class));
       finish();
