@@ -69,23 +69,24 @@ public class MainActivity extends AppCompatActivity {
     mFunctions = FirebaseFunctions.getInstance();
     signInButton = findViewById(R.id.signGoogle);
 
+//Added in StartActivity
 
-    if (mFirebaseAuth.getCurrentUser() != null){
-      startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-      finish();
-    }
-
+//    if (mFirebaseAuth.getCurrentUser() != null){
+//      startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+//      finish();
+//    }
+//
     gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("222983164938-h7243aqvsgec6gqgg03uua6h9ni5qkkn.apps.googleusercontent.com")
             .requestEmail()
             .build();
     signInClient = GoogleSignIn.getClient(this,gso);
     GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
-    if (signInAccount != null || mFirebaseAuth.getCurrentUser() != null){
-      Toast.makeText(this,"User is Logged in Already",Toast.LENGTH_SHORT).show();
-      startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-      finish();
-    }
+//    if (signInAccount != null || mFirebaseAuth.getCurrentUser() != null){
+//      Toast.makeText(this,"User is Logged in Already",Toast.LENGTH_SHORT).show();
+//      startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+//      finish();
+//    }
     signInButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
