@@ -18,12 +18,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class StartActivity extends AppCompatActivity {
     Button email, phone;
-//    FirebaseAuth mFirebaseAuth;
-//    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
-//    String userID;
-//    SignInButton signInButton;
-//    GoogleSignInOptions gso;
-//    GoogleSignInClient signInClient;
+    FirebaseAuth mFirebaseAuth;
+    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+    String userID;
+    SignInButton signInButton;
+    GoogleSignInOptions gso;
+    GoogleSignInClient signInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,24 +32,24 @@ public class StartActivity extends AppCompatActivity {
 
         email = findViewById(R.id.email);
         phone = findViewById(R.id.phone);
-//        mFirebaseAuth = FirebaseAuth.getInstance();
-//
-//        if (mFirebaseAuth.getCurrentUser() != null){
-//            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-//            finish();
-//        }
-//
-//        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken("222983164938-h7243aqvsgec6gqgg03uua6h9ni5qkkn.apps.googleusercontent.com")
-//                .requestEmail()
-//                .build();
-//        signInClient = GoogleSignIn.getClient(this,gso);
-//        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
-//        if (signInAccount != null || mFirebaseAuth.getCurrentUser() != null){
-//            Toast.makeText(this,"User is Logged in Already",Toast.LENGTH_SHORT).show();
-//            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-//            finish();
-//        }
+        mFirebaseAuth = FirebaseAuth.getInstance();
+
+        if (mFirebaseAuth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+            finish();
+        }
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("222983164938-h7243aqvsgec6gqgg03uua6h9ni5qkkn.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
+        signInClient = GoogleSignIn.getClient(this,gso);
+        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if (signInAccount != null || mFirebaseAuth.getCurrentUser() != null){
+            Toast.makeText(this,"User is Logged in Already",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+            finish();
+        }
 
         email.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -119,7 +119,7 @@ public class HomeActivity extends AppCompatActivity {
                             .signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Intent intToMain = new Intent(HomeActivity.this, StartActivity.class);
+                            Intent intToMain = new Intent(HomeActivity.this, MainActivity.class);
                             startActivity(intToMain);
                             finish();
                         }

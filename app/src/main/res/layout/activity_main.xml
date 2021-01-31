@@ -11,7 +11,7 @@
         android:id="@+id/signGoogle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="25dp"
         android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toTopOf="@+id/proname"
         app:layout_constraintEnd_toEndOf="parent"
@@ -136,12 +136,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/phoneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginBottom="50dp"
-        android:background="@drawable/ic_baseline_home_24"
+        android:background="@drawable/ic_baseline_call_24"
         app:layout_constraintBottom_toTopOf="@+id/proname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
@@ -149,14 +149,14 @@
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:height="30dp"
-        android:text="HOME"
+        android:text="PHONE LOGIN"
         android:textAlignment="center"
         android:textColor="#39bbff"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton"
-        app:layout_constraintStart_toStartOf="@+id/imageButton"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+        app:layout_constraintEnd_toEndOf="@+id/phoneButton"
+        app:layout_constraintStart_toStartOf="@+id/phoneButton"
+        app:layout_constraintTop_toBottomOf="@+id/phoneButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

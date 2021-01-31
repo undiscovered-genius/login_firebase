@@ -43,11 +43,11 @@ public class loginActivity extends AppCompatActivity {
     //FirebaseFirestore fstore;
     //String userid;
     //private FirebaseAuth.AuthStateListener mAuthStateListener;
-    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
-    String userID;
-    SignInButton signInButton;
-    GoogleSignInOptions gso;
-    GoogleSignInClient signInClient;
+//    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+//    String userID;
+//    SignInButton signInButton;
+//    GoogleSignInOptions gso;
+//    GoogleSignInClient signInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,29 +60,29 @@ public class loginActivity extends AppCompatActivity {
         btnSignIn = findViewById(R.id.button);
         tvSignUp = findViewById(R.id.textView);
         mforgotpasswordlink = findViewById(R.id.forgotpassword);
-
-        if (mFirebaseAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-            finish();
-        }else{
-            startActivity(new Intent(getApplicationContext(),StartActivity.class));
-            finish();
-        }
-
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("222983164938-h7243aqvsgec6gqgg03uua6h9ni5qkkn.apps.googleusercontent.com")
-                .requestEmail()
-                .build();
-        signInClient = GoogleSignIn.getClient(this,gso);
-        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
-        if (signInAccount != null || mFirebaseAuth.getCurrentUser() != null){
-            Toast.makeText(this,"User is Logged in Already",Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-            finish();
-        }else{
-            startActivity(new Intent(getApplicationContext(),StartActivity.class));
-            finish();
-        }
+//
+//        if (mFirebaseAuth.getCurrentUser() != null){
+//            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+//            finish();
+//        }else{
+//            startActivity(new Intent(getApplicationContext(),StartActivity.class));
+//            finish();
+//        }
+//
+//        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken("222983164938-h7243aqvsgec6gqgg03uua6h9ni5qkkn.apps.googleusercontent.com")
+//                .requestEmail()
+//                .build();
+//        signInClient = GoogleSignIn.getClient(this,gso);
+//        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
+//        if (signInAccount != null || mFirebaseAuth.getCurrentUser() != null){
+//            Toast.makeText(this,"User is Logged in Already",Toast.LENGTH_SHORT).show();
+//            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+//            finish();
+//        }else{
+//            startActivity(new Intent(getApplicationContext(),StartActivity.class));
+//            finish();
+//        }
 
         btnSignIn.setOnClickListener(new View.OnClickListener(){
             @Override
