@@ -62,7 +62,8 @@ public class StartActivity extends AppCompatActivity {
         phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Comming Soon!",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),"Comming Soon!",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(StartActivity.this, PhoneActivity.class));
             }
         });
     }

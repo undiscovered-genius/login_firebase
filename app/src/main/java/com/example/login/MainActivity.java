@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
   SignInButton signInButton;
   GoogleSignInOptions gso;
   GoogleSignInClient signInClient;
+  ImageButton phoneBtn;
 
   private FirebaseFunctions mFunctions;
 // ...
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     mfullname = findViewById(R.id.proname);
     mFunctions = FirebaseFunctions.getInstance();
     signInButton = findViewById(R.id.signGoogle);
+    phoneBtn = findViewById(R.id.phoneButton);
 
 //Added in StartActivity
 
@@ -95,6 +98,12 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
+    phoneBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(MainActivity.this, PhoneActivity.class));
+      }
+    });
 
     btnSignUp.setOnClickListener(new View.OnClickListener() {
       @Override
