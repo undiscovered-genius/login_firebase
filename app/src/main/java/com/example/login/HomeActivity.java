@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        fullName = findViewById(R.id.proname);
+        fullName = findViewById(R.id.usrname);
         email = findViewById(R.id.proemail);
         phone = findViewById(R.id.prophone);
         btnLogout = findViewById(R.id.logout);

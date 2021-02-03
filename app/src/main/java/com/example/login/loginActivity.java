@@ -1,7 +1,6 @@
 package com.example.login;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,22 +14,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 //import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 //import com.google.firebase.auth.FirebaseUser;
 
@@ -55,9 +44,9 @@ public class loginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        emailId = findViewById(R.id.editText);
+        emailId = findViewById(R.id.mail);
         password = findViewById(R.id.editText2);
-        btnSignIn = findViewById(R.id.button);
+        btnSignIn = findViewById(R.id.savebtn);
         tvSignUp = findViewById(R.id.textView);
         mforgotpasswordlink = findViewById(R.id.forgotpassword);
 //

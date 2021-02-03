@@ -13,13 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/proname"
+        app:layout_constraintBottom_toTopOf="@+id/usrname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/proname"
+        android:id="@+id/usrname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -31,7 +31,7 @@
         android:inputType="textPersonName"
         android:padding="10dp"
         android:paddingStart="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/mail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
@@ -55,7 +55,7 @@
         app:layout_constraintVertical_bias="0.060000002" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/mail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -105,7 +105,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/savebtn"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -131,7 +131,7 @@
         android:inputType="phone"
         android:padding="10dp"
         android:paddingStart="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/savebtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -142,7 +142,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/ic_baseline_call_24"
-        app:layout_constraintBottom_toTopOf="@+id/proname"
+        app:layout_constraintBottom_toTopOf="@+id/usrname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent" />

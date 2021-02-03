@@ -22,7 +22,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -62,12 +61,12 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     mFirebaseAuth = FirebaseAuth.getInstance();
-    emailId = findViewById(R.id.editText);
+    emailId = findViewById(R.id.mail);
     password = findViewById(R.id.editText2);
-    btnSignUp = findViewById(R.id.button);
+    btnSignUp = findViewById(R.id.savebtn);
     tvSignIn = findViewById(R.id.textView);
     mphone = findViewById(R.id.prophone);
-    mfullname = findViewById(R.id.proname);
+    mfullname = findViewById(R.id.usrname);
     mFunctions = FirebaseFunctions.getInstance();
     signInButton = findViewById(R.id.signGoogle);
     phoneBtn = findViewById(R.id.phoneButton);
