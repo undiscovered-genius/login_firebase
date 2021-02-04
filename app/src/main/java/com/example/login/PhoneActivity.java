@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -38,6 +39,8 @@ public class PhoneActivity extends AppCompatActivity {
     PhoneAuthProvider.ForceResendingToken token;
     Boolean verificationInProgress = false;
     FirebaseFirestore firestore;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,47 +84,6 @@ public class PhoneActivity extends AppCompatActivity {
         });
     }
 
-    private void checkUserProfile() {
-        DocumentReference documentRef = firestore.collection("users").document(firebaseAuth.getCurrentUser().getUid());
-        documentRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()){
-                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-                    finish();
-                }else {
-                    startActivity(new Intent(getApplicationContext(),phnUserActivity.class));
-                    finish();
-                }
-            }
-        });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (firebaseAuth.getCurrentUser() != null){
-            progressBar.setVisibility(View.VISIBLE);
-            state.setText("Checking...");
-            state.setVisibility(View.VISIBLE);
-
-            checkUserProfile();
-        }
-    }
-
-    private void verfyAuth(PhoneAuthCredential credential) {
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(PhoneActivity.this,"Verification Successfull!",Toast.LENGTH_SHORT).show();
-                    checkUserProfile();
-                }else {
-                    Toast.makeText(PhoneActivity.this,"Verification Failed!",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 
     private void requestOTP(String phoneNum) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(phoneNum, 60L, TimeUnit.SECONDS, this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -151,6 +113,53 @@ public class PhoneActivity extends AppCompatActivity {
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
                 Toast.makeText(PhoneActivity.this,"Cannot Create Account"+e.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void verfyAuth(PhoneAuthCredential credential) {
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(PhoneActivity.this,"Verification Successfull!",Toast.LENGTH_SHORT).show();
+                    checkUserProfile();
+                }else {
+                    Toast.makeText(PhoneActivity.this,"Verification Failed!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (firebaseAuth.getCurrentUser() != null){
+            progressBar.setVisibility(View.VISIBLE);
+            state.setText("Checking...");
+            state.setVisibility(View.VISIBLE);
+
+            checkUserProfile();
+        }
+    }
+
+    private void checkUserProfile() {
+        DocumentReference documentRef = firestore.collection("users").document(firebaseAuth.getCurrentUser().getUid());
+        documentRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()){
+                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                    finish();
+                }else {
+                    startActivity(new Intent(getApplicationContext(),phnUserActivity.class));
+                    finish();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(PhoneActivity.this, "Profile Do Not Exists", Toast.LENGTH_SHORT).show();
             }
         });
     }

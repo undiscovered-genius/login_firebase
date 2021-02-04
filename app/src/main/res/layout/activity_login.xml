@@ -17,6 +17,7 @@
         android:background="@drawable/edittext"
         android:ems="10"
         android:hint="Email"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
         android:inputType="textEmailAddress"
         android:padding="10dp"
         android:paddingStart="20dp"
