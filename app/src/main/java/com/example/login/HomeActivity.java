@@ -117,7 +117,7 @@ public class HomeActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              // FirebaseAuth.getInstance().signOut();
+//               FirebaseAuth.getInstance().signOut();
                 try {
                     GoogleSignIn.getClient(HomeActivity.this,new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build())
                             .signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -136,7 +136,8 @@ public class HomeActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-                Intent intToMain = new Intent(HomeActivity.this, loginActivity.class);
+               // FirebaseAuth.getInstance().signOut();
+                Intent intToMain = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(intToMain);
                 finish();
             }

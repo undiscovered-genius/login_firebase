@@ -186,36 +186,40 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
           @Override
           public void onComplete(@NonNull Task<AuthResult> task) {
-            Toast.makeText(getApplicationContext(),"Your Google Account is Connected",Toast.LENGTH_SHORT).show();
-            userid = mFirebaseAuth.getCurrentUser().getUid();
-            //Toast.makeText(HomeActivity.this, " "+userProvider, Toast.LENGTH_SHORT).show();
-            Log.d("tag", "onCreate: " + mFirebaseAuth.getCurrentUser().getEmail() +"  "+ mFirebaseAuth.getCurrentUser().getDisplayName()+"  "+ mFirebaseAuth.getCurrentUser().getPhoneNumber());
-            userid = mFirebaseAuth.getCurrentUser().getUid();
-            String number = mFirebaseAuth.getCurrentUser().getPhoneNumber();
-            final String num;
-            if (number == null){
-              num = "-";
+            if(task.isSuccessful()){
+              Toast.makeText(getApplicationContext(),"Your Google Account is Connected",Toast.LENGTH_SHORT).show();
+              //userid = mFirebaseAuth.getCurrentUser().getUid();
+              //Toast.makeText(HomeActivity.this, " "+userProvider, Toast.LENGTH_SHORT).show();
+              Log.d("tag", "onCreate: " + mFirebaseAuth.getCurrentUser().getEmail() +"  "+ mFirebaseAuth.getCurrentUser().getDisplayName()+"  "+ mFirebaseAuth.getCurrentUser().getPhoneNumber());
+              userid = mFirebaseAuth.getCurrentUser().getUid();
+              String number = mFirebaseAuth.getCurrentUser().getPhoneNumber();
+              final String num;
+              if (number == null){
+                num = "-";
+              }else{
+                num = mFirebaseAuth.getCurrentUser().getPhoneNumber();
+              }
+              final DocumentReference documentreference= fstore.collection("users").document(userid);
+              Map<String,Object> user = new HashMap<>();
+              user.put("fName",mFirebaseAuth.getCurrentUser().getDisplayName());
+              user.put("email",mFirebaseAuth.getCurrentUser().getEmail());
+              user.put("phone",num);
+              documentreference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                  Log.d("tag","Onsuccess: user Profile is createdfor "+userid);
+                }
+              }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                  Log.d("tag","OnFailure : "+e.toString());
+                }
+              });
+              startActivity(new Intent(MainActivity.this,HomeActivity.class));
+              finish();
             }else{
-              num = mFirebaseAuth.getCurrentUser().getPhoneNumber();
+              Toast.makeText(getApplicationContext(), "ERROR ", Toast.LENGTH_SHORT).show();
             }
-            final DocumentReference documentreference= fstore.collection("users").document(userid);
-            Map<String,Object> user = new HashMap<>();
-            user.put("fName",mFirebaseAuth.getCurrentUser().getDisplayName());
-            user.put("email",mFirebaseAuth.getCurrentUser().getEmail());
-            user.put("phone",num);
-            documentreference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-              @Override
-              public void onSuccess(Void aVoid) {
-                Log.d("tag","Onsuccess: user Profile is createdfor "+userid);
-              }
-            }).addOnFailureListener(new OnFailureListener() {
-              @Override
-              public void onFailure(@NonNull Exception e) {
-                Log.d("tag","OnFailure : "+e.toString());
-              }
-            });
-            startActivity(new Intent(MainActivity.this,HomeActivity.class));
-            finish();
           }
         }).addOnFailureListener(new OnFailureListener() {
           @Override

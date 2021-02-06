@@ -90,6 +90,7 @@ public class PhoneActivity extends AppCompatActivity {
             @Override
             public void onCodeAutoRetrievalTimeOut(@NonNull String s) {
                 super.onCodeAutoRetrievalTimeOut(s);
+                Toast.makeText(PhoneActivity.this,"OTP Expired! Pls resend",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -107,7 +108,7 @@ public class PhoneActivity extends AppCompatActivity {
 
             @Override
             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
+                verfyAuth(phoneAuthCredential);
             }
 
             @Override
@@ -134,13 +135,13 @@ public class PhoneActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (firebaseAuth.getCurrentUser() != null){
-            progressBar.setVisibility(View.VISIBLE);
-            state.setText("Checking...");
-            state.setVisibility(View.VISIBLE);
-
-            checkUserProfile();
-        }
+//        if (firebaseAuth.getCurrentUser() != null){
+//            progressBar.setVisibility(View.VISIBLE);
+//            state.setText("Checking...");
+//            state.setVisibility(View.VISIBLE);
+//
+//            checkUserProfile();
+//        }
     }
 
     private void checkUserProfile() {
