@@ -154,6 +154,7 @@ public class PhoneActivity extends AppCompatActivity {
                 }else {
                     startActivity(new Intent(getApplicationContext(),phnUserActivity.class));
                     finish();
+//                    Toast.makeText(PhoneActivity.this, "ERROR!", Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {

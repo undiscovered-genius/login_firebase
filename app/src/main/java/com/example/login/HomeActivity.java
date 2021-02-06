@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -32,6 +33,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
@@ -41,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore fstore;
     String userid;
+    String userProvider;
     TextView fullName, email, phone;
     ImageView profileImage;
     ImageView changeProfileImage;
@@ -61,33 +64,35 @@ public class HomeActivity extends AppCompatActivity {
         fstore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
 
-        try {
+//        try {
+//            userProvider = String.valueOf(mAuth.getCurrentUser().getProviderId());
             userid = mAuth.getCurrentUser().getUid();
-            Log.d("tag", "onCreate: " + mAuth.getCurrentUser().getEmail() +"  "+ mAuth.getCurrentUser().getDisplayName()+"  "+ mAuth.getCurrentUser().getPhoneNumber());
-            userid = mAuth.getCurrentUser().getUid();
-            String number = mAuth.getCurrentUser().getPhoneNumber();
-            final String num;
-            if (number == null){
-                num = "-";
-            }else{
-                num = mAuth.getCurrentUser().getPhoneNumber();
-            }
-            final DocumentReference documentreference= fstore.collection("users").document(userid);
-            Map<String,Object> user = new HashMap<>();
-            user.put("fName",mAuth.getCurrentUser().getDisplayName());
-            user.put("email",mAuth.getCurrentUser().getEmail());
-            user.put("phone",num);
-            documentreference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Log.d("tag","Onsuccess: user Profile is createdfor "+userid);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d("tag","OnFailure : "+e.toString());
-                }
-            });
+//            Toast.makeText(HomeActivity.this, " "+userProvider, Toast.LENGTH_SHORT).show();
+//            Log.d("tag", "onCreate: " +userProvider + mAuth.getCurrentUser().getEmail() +"  "+ mAuth.getCurrentUser().getDisplayName()+"  "+ mAuth.getCurrentUser().getPhoneNumber());
+//            userid = mAuth.getCurrentUser().getUid();
+//            String number = mAuth.getCurrentUser().getPhoneNumber();
+//            final String num;
+//            if (number == null){
+//                num = "-";
+//            }else{
+//                num = mAuth.getCurrentUser().getPhoneNumber();
+//            }
+//            final DocumentReference documentreference= fstore.collection("users").document(userid);
+//            Map<String,Object> user = new HashMap<>();
+//            user.put("fName",mAuth.getCurrentUser().getDisplayName());
+//            user.put("email",mAuth.getCurrentUser().getEmail());
+//            user.put("phone",num);
+//            documentreference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                @Override
+//                public void onSuccess(Void aVoid) {
+//                    Log.d("tag","Onsuccess: user Profile is createdfor "+userid);
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Log.d("tag","OnFailure : "+e.toString());
+//                }
+//            });
 
             StorageReference profileRef = storageReference.child("users/"+mAuth.getCurrentUser().getUid()+"/profile.jpg");
             profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -105,9 +110,9 @@ public class HomeActivity extends AppCompatActivity {
                     email.setText(value.getString("email"));
                 }
             });
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
