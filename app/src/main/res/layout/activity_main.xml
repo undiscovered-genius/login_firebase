@@ -85,6 +85,7 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:drawableLeft="@drawable/ic_baseline_password_24"
         android:padding="10dp"
         android:paddingStart="20dp"
         app:layout_constraintBottom_toTopOf="@+id/prophone"

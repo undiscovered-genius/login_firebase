@@ -35,6 +35,7 @@
         android:background="@drawable/edittext"
         android:ems="10"
         android:hint="Password"
+        android:drawableLeft="@drawable/ic_baseline_password_24"
         android:inputType="textPassword"
         android:padding="10dp"
         android:paddingStart="20dp"
