@@ -97,6 +97,7 @@
         android:layout_marginTop="35dp"
         android:layout_marginEnd="16dp"
         android:hint="full name"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
         android:textColor="#39bbff"
         android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
@@ -113,6 +114,7 @@
         android:hint="@android:string/defaultVoiceMailAlphaTag"
         android:textColor="#39bbff"
         android:textColorHint="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/profileImg"
         app:layout_constraintTop_toBottomOf="@+id/usrname" />
@@ -124,6 +126,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
+        android:drawableLeft="@drawable/icon_call"
         android:hint="phone"
         android:textColor="#39bbff"
         android:textColorHint="#FFFFFF"
