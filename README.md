@@ -15,8 +15,7 @@
 
 # Email Sign-in Screen
   IF user have already created an account then he/she can directly login with there email & password. One can even change the password if they forgot. <br>
-<img src = "app\src\main\res\drawable-v24\Screenshot_signin.png" width="300">  
-<img src = "app\src\main\res\drawable-v24\Screenshot_password.png" width="300">
+<p><img src = "app\src\main\res\drawable-v24\Screenshot_signin.png" width="300">  <img src = "app\src\main\res\drawable-v24\Screenshot_password.png" width="300"></p>
 
 # Phone Sign-in Screen 
   User can simply login throught mobile number. A OTP will be generated after entering the mobile number, which the user will recieve within few seconds. App will automatically take the OTP as soon as it comes and after checking, it will forward the user to his/her profile. <br>
